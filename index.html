@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html id="website" lang="en" onkeydown="jump()">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #website{
+            background-color: black;
+        }
+        #charakter {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            position: absolute;
+            top: 500px;
+            left: 50px;
+            transition: top 500ms ease-out;
+        }
+
+        #enemy{
+            width: 100px;
+            height: 100px;
+            background-color: forestgreen;
+            position: absolute;
+            top: 500px;
+            right: 100px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="charakter"> </div>
+<div id="enemy"> </div>
+<script>
+    let enemy_left = 1700; //Initialisiert die horizontale Position des Gegners (grün) bei 1700px.
+    let on_ground = true; // prüft, ob der Spieler auf dem Boden ist (um zu verhindern, dass man während eines Sprungs erneut springt)
+    setInterval(() => { // bewegt den Gegner kontinuierlich von rechts nach links.
+        enemy.style.left = enemy_left + 'px';
+        enemy_left-= 20;
+
+        //Wenn der Gegner die Position enemy_left < 150 erreicht und der Charakter auf dem Boden ist (on_ground),
+        // wird ein alert ausgelöst.
+        if(enemy_left<150 && on_ground){
+            alert('Game over')
+        }
+
+        //Wenn der Gegner den linken Bildschirmrand überschreitet, wird er auf
+        // die Startposition bei 1700px zurückgesetzt.
+        if(enemy_left < 0){
+            enemy_left = 1700;
+        }
+    },10); //Alle 10ms wird die Position des Gegners um 20px verringert
+
+    function jump (){ //ührt einen Sprung des Charakters aus, wenn eine Taste gedrückt wird:
+        charakter.style.top = '250px'; //Der Charakter wird auf top: 250px (höher auf dem Bildschirm) verschoben.
+        on_ground = false;
+        setTimeout(()=> {
+            charakter.style.top = '500px'
+        }, 300); // Nach 300ms kehrt der Charakter wieder in die Ausgangsposition bei top: 500px zurück.
+        setTimeout(()=>{
+            on_ground= true;
+        }, 400); //Nach 400ms wird der on_ground-Wert wieder auf true gesetzt, sodass der Spieler erneut springen kann.
+    }
+
+
+</script>
+</body>
+</html>
